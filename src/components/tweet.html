@@ -1,0 +1,16 @@
+<template>
+  <div class="ui form six wide column">
+    <form submit.trigger="makeTweet()" class="ui form stacked segment">
+      <div class="grouped inline fields">
+        <div class="text"><h3>Tweet</h3></div>
+        <div class="field">
+          <div class="ui fluid input">
+            <input type="text" maxlength="140" value.bind="tweet">
+          </div>
+        </div>
+      </div>
+      <button class="ui right aligned blue submit button">Tweet</button>
+    </form>
+  </div>
+
+</template>
