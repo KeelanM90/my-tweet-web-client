@@ -90,7 +90,13 @@
               "components/transition.js"
             ]
           },
-          "text"
+          "text",
+          {
+            "name": "moment",
+            "main": "./moment.js",
+            "path": "../node_modules/moment",
+            "resources": []
+          }
         ]
       }
     ],

@@ -4,6 +4,7 @@ import Fixtures from './fixtures';
 import {LoginStatus, Tweets} from './messages';
 import { EventAggregator } from 'aurelia-event-aggregator';
 import { User, Tweet } from './models';
+import * as moment from 'moment';
 
 @inject(Fixtures, EventAggregator, AsyncHttpClient)
 export class TweetService {
@@ -33,6 +34,9 @@ export class TweetService {
   getTweets() {
     this.ac.get("/api/tweets").then(res => {
       this.tweets = res.content;
+      this.tweets.forEach( tweet => {
+        tweet.readableDate = moment(tweet.date).format('lll');
+      })
       this.ea.publish(new Tweets(this.tweets));
     });
   }
@@ -45,7 +49,8 @@ export class TweetService {
       .post('/api/tweets', tweet)
       .then(res => {
         let returnedTweet = res.content as Tweet;
-        this.tweets.push(returnedTweet);
+        returnedTweet.readableDate = moment(returnedTweet.date).format('lll');
+        this.tweets.unshift(returnedTweet);
       });
   }
 

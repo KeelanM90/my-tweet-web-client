@@ -5,6 +5,7 @@ export class Tweets{
 
   constructor(tweets: Array<Tweet>){
     this.tweets = tweets;
+
   }
 }
 

@@ -8,5 +8,7 @@ export interface User {
 
 export interface Tweet {
   tweet: string;
+  date: Date;
+  readableDate: string;
   tweeter: User;
 }
