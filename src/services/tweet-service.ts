@@ -42,7 +42,7 @@ export class TweetService {
       tweet: tweetmsg
     };
     this.ac
-      .post('/api/tweet', tweet)
+      .post('/api/tweets', tweet)
       .then(res => {
         let returnedTweet = res.content as Tweet;
         this.tweets.push(returnedTweet);
