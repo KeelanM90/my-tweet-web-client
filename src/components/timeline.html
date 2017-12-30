@@ -1,6 +1,9 @@
 <template>
 
   <div repeat.for="tweet of tweets" class="ui blue fluid card">
+    <div>
+      <img class="ui ${tweet.img ? 'fluid' : 'hidden'} image" src=${tweet.img}>
+    </div>
     <div class="content">
       ${tweet.tweet}
     </div>
