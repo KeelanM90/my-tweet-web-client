@@ -26,8 +26,15 @@ export class TweetService {
     this.ac.get('/api/users').then(res => {
       const users = res.content as Array<User>;
       users.forEach(user => {
+        this.ac.get('/api/followers/' + user._id).then(res2 => {
+          user.followers = res2.content as Array<User>;
+        });
+        this.ac.get('/api/following/' + user._id).then(res2 => {
+          user.following = res2.content as Array<User>;
+        });
         this.users.set(user.email, user);
       });
+      this.ea.publish(users);
     });
   }
 
