@@ -13,6 +13,13 @@ export class Home {
         title: 'Home',
       },
       {
+        route: 'profile',
+        name: 'profile',
+        moduleId: 'components/profile',
+        nav: true,
+        title: 'Profile',
+      },
+      {
         route: 'logout',
         name: 'logout',
         moduleId: 'components/logout',

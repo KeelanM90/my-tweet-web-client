@@ -1,7 +1,7 @@
 import { inject } from 'aurelia-framework';
 import AsyncHttpClient from './async-http-client';
 import Fixtures from './fixtures';
-import {LoginStatus, Tweets} from './messages';
+import {CurrentUser, LoginStatus, Tweets} from './messages';
 import { EventAggregator } from 'aurelia-event-aggregator';
 import { User, Tweet } from './models';
 import * as moment from 'moment';
@@ -12,6 +12,7 @@ export class TweetService {
   ac: AsyncHttpClient;
   tweets: Array<Tweet> = [];
   users: Map<string, User> = new Map();
+  currentUser: User;
 
   constructor(data: Fixtures, ea: EventAggregator, ac: AsyncHttpClient) {
     this.ea = ea;
@@ -20,6 +21,19 @@ export class TweetService {
 
   isAuthenticated() {
     return this.ac.isAuthenticated();
+  }
+
+  getCurrentUser() {
+    this.ac.get('/api/users/current').then(res => {
+      this.currentUser = res.content as User;
+      this.ac.get('/api/followers/' + this.currentUser._id).then(res2 => {
+        this.currentUser.followers = res2.content as Array<User>;
+      });
+      this.ac.get('/api/following/' + this.currentUser._id).then(res2 => {
+        this.currentUser.following = res2.content as Array<User>;
+      });
+      this.ea.publish(new CurrentUser(this.currentUser));
+    });
   }
 
   getUsers() {
@@ -35,6 +49,16 @@ export class TweetService {
         this.users.set(user.email, user);
       });
       this.ea.publish(users);
+    });
+  }
+
+  getUsersTweets(id) {
+    this.ac.get('/api/users/' + id + '/tweets').then(res => {
+      this.tweets = res.content;
+      this.tweets.forEach( tweet => {
+        tweet.readableDate = moment(tweet.date).format('lll');
+      })
+      this.ea.publish(new Tweets(this.tweets));
     });
   }
 

@@ -1,11 +1,18 @@
-import {Tweet} from "./models";
+import {Tweet, User} from "./models";
 
 export class Tweets{
   tweets: Array<Tweet>;
 
   constructor(tweets: Array<Tweet>){
     this.tweets = tweets;
+  }
+}
 
+export class CurrentUser {
+  user: User;
+
+  constructor(currentUser: User){
+    this.user = currentUser;
   }
 }
 

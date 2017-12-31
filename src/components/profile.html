@@ -1,0 +1,15 @@
+<template>
+
+  <div repeat.for="tweet of tweets" class="ui blue fluid card">
+    <div>
+      <img class="ui ${tweet.img ? 'fluid' : 'hidden'} image" src=${tweet.img}>
+    </div>
+    <div class="content">
+      ${tweet.tweet}
+    </div>
+    <div class="extra content">
+      <a href="">${tweet.tweeter.firstName} ${tweet.tweeter.lastName}</a>
+      <div class="right floated meta">${tweet.readableDate}</div>
+    </div>
+  </div>
+</template>
