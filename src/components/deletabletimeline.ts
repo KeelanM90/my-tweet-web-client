@@ -8,6 +8,7 @@ import {ActiveUser, CurrentUser, Tweets} from "../services/messages";
 export class Deletabletimeline {
   tweetService: TweetService;
   tweets: Array<Tweet>;
+  checkboxes: Array<string> = [];
   user: User;
 
   constructor(ts, ea) {
@@ -26,6 +27,12 @@ export class Deletabletimeline {
   deleteAll(){
     for (let tweet of this.tweets) {
       this.tweetService.deleteTweet(tweet._id);
+    }
+  }
+
+  deleteSelected(){
+    for (let id of this.checkboxes) {
+      this.tweetService.deleteTweet(id);
     }
   }
 }

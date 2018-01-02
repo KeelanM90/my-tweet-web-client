@@ -1,5 +1,5 @@
 <template>
-  <form action="/deleteselectedtweets/{{email}}" method="POST">
+  <form submit.trigger="deleteSelected()" method="POST">
     <table class="ui padded celled table">
       <thead>
       <tr>
@@ -22,8 +22,8 @@
         </td>
         <td>
           <div class="ui checkbox">
-            <input type="checkbox" name="{{id}}">
-            <label id="{{id}}"></label>
+            <input type="checkbox" value.bind="tweet._id" checked.bind="checkboxes">
+            <label id="${tweet._id}"></label>
           </div>
         </td>
       </tr>
