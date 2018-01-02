@@ -18,12 +18,7 @@ export class Profile {
       this.tweetService.getUsersTweets(params.id);
       this.tweetService.getUser(params.id);
     } else {
-      this.eventAggregator.subscribe(CurrentUser, msg => {
-        this.deletable = true;
-        this.user = msg.user as User;
-        this.tweetService.getUsersTweets(this.user._id);
-        this.eventAggregator.publish(new ActiveUser(this.user));
-      });
+      this.deletable = true;
     }
   }
 

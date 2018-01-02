@@ -9,6 +9,7 @@ export interface User {
 }
 
 export interface Tweet {
+  _id?: string;
   tweet: string;
   date: Date;
   readableDate: string;

@@ -99,6 +99,14 @@ export class TweetService {
       });
   }
 
+  deleteTweet(id: string) {
+    this.ac
+      .delete('/api/tweets/' + id)
+      .then(res => {
+        this.getUsersTweets(this.currentUser._id);
+      });
+  }
+
   register(
     firstName: string,
     lastName: string,

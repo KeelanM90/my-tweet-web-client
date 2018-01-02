@@ -21,7 +21,6 @@ export class ActiveUser {
 
   constructor(activeUser: User){
     this.user = activeUser;
-    console.log(activeUser);
   }
 }
 

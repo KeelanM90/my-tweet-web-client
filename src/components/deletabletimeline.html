@@ -1,0 +1,46 @@
+<template>
+  <form action="/deleteselectedtweets/{{email}}" method="POST">
+    <table class="ui padded celled table">
+      <thead>
+      <tr>
+        <th>
+          <i class="twitter icon"></i>Tweet
+        </th>
+        <th><i class="trash icon"></i></th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr repeat.for="tweet of tweets">
+        <td>
+          <div class="item">
+            <div class="content">
+              <a class="header"
+                 href="/profile">${tweet.tweeter.firstName} ${tweet.tweeter.lastName}</a>
+              <div class="description">${tweet.tweet}</div>
+            </div>
+          </div>
+        </td>
+        <td>
+          <div class="ui checkbox">
+            <input type="checkbox" name="{{id}}">
+            <label id="{{id}}"></label>
+          </div>
+        </td>
+      </tr>
+      </tbody>
+      <tfoot class="full-width">
+      <tr>
+        <th colspan="2">
+
+          <button class="ui right floated small red labeled icon button">
+            <i class="trash icon"></i> Delete Selected
+          </button>
+          <a class="ui small red labeled icon button" click.delegate="deleteAll()">
+            <i class="trash icon"></i> Delete All
+          </a>
+        </th>
+      </tr>
+      </tfoot>
+    </table>
+  </form>
+</template>
