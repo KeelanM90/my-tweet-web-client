@@ -1,28 +1,38 @@
-import { inject } from 'aurelia-framework';
-import { TweetService } from '../services/tweet-service';
-import { EventAggregator } from 'aurelia-event-aggregator';
+import {inject} from 'aurelia-framework';
+import {TweetService} from '../services/tweet-service';
+import {EventAggregator} from 'aurelia-event-aggregator';
 import {Tweet, User} from '../services/models';
-import {CurrentUser, Tweets} from "../services/messages";
+import {ActiveUser, CurrentUser, Tweets} from "../services/messages";
 
-@inject(TweetService , EventAggregator)
+@inject(TweetService, EventAggregator)
 export class Profile {
+  tweetService: TweetService;
+  eventAggregator: EventAggregator;
   tweets: Array<Tweet>;
   user: User;
+  deletable: boolean;
 
-  constructor(ts, ea) {
-    ts.getCurrentUser();
-
-    ea.subscribe(CurrentUser, msg => {
-      this.user = msg.user as User;
-      console.log(this.user);
-
-      ts.getUsersTweets(this.user._id);
-
-      ea.subscribe(Tweets, msg => {
-        this.tweets = msg.tweets;
+  activate(params) {
+    if (params.id) {
+      this.deletable = false;
+      this.tweetService.getUsersTweets(params.id);
+      this.tweetService.getUser(params.id);
+    } else {
+      this.eventAggregator.subscribe(CurrentUser, msg => {
+        this.deletable = true;
+        this.user = msg.user as User;
+        this.tweetService.getUsersTweets(this.user._id);
+        this.eventAggregator.publish(new ActiveUser(this.user));
       });
-    });
+    }
+  }
 
+  constructor(ts: TweetService, ea: EventAggregator) {
+
+    this.tweetService = ts;
+    this.eventAggregator = ea;
+
+    this.tweetService.getCurrentUser();
 
   }
 }

@@ -1,0 +1,28 @@
+<template>
+  <div id="acc" class="ui styled accordion">
+    <div class="title">
+      <h1>${user.firstName} ${user.lastName}</h1>
+    </div>
+    <div class="content">
+    </div>
+    <div class="title">
+      <i class="dropdown icon"></i>
+      ${user.followers.length} Followers
+    </div>
+    <div class="content">
+      <div repeat.for="follow of user.followers">
+        <a href="#/profile/${follow.follower._id}">${follow.follower.firstName} ${follow.follower.lastName}</a>
+      </div>
+    </div>
+    <div class="title">
+      <i class="dropdown icon"></i>
+      ${user.following.length} Following
+    </div>
+    <div class="content">
+      <div repeat.for="follow of user.following">
+        <a href="#/profile/${follow.followee._id}">${follow.followee.firstName} ${follow.followee.lastName}</a>
+      </div>
+    </div>
+  </div>
+
+</template>

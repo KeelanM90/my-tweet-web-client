@@ -16,6 +16,15 @@ export class CurrentUser {
   }
 }
 
+export class ActiveUser {
+  user: User;
+
+  constructor(activeUser: User){
+    this.user = activeUser;
+    console.log(activeUser);
+  }
+}
+
 export class LoginStatus {
   status: boolean;
   message: string;

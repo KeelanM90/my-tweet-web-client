@@ -87,7 +87,7 @@
             "main": "semantic.min.js",
             "resources": [
               "semantic.min.css",
-              "components/transition.js"
+              "components/accordion.js"
             ]
           },
           "text",

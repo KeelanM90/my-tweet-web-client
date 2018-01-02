@@ -1,15 +1,12 @@
 <template>
+  <div class="ui grid segment">
+    <div class="ui form six wide column">
+      <compose view-model="${deletable ? './tweet' : './viewuser'}"></compose>
+    </div>
 
-  <div repeat.for="tweet of tweets" class="ui blue fluid card">
-    <div>
-      <img class="ui ${tweet.img ? 'fluid' : 'hidden'} image" src=${tweet.img}>
-    </div>
-    <div class="content">
-      ${tweet.tweet}
-    </div>
-    <div class="extra content">
-      <a href="">${tweet.tweeter.firstName} ${tweet.tweeter.lastName}</a>
-      <div class="right floated meta">${tweet.readableDate}</div>
-    </div>
+    <aside class="ten wide column">
+      <compose view-model="./timeline"></compose>
+    </aside>
   </div>
+
 </template>
