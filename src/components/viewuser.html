@@ -1,26 +1,31 @@
 <template>
-  <div id="acc" class="ui styled accordion">
+  <div class="ui styled">
     <div class="title">
+      <a class="ui small right floated ${isFollowing ? 'red' : 'blue' } labeled icon button"
+         click.delegate="followToggle()">
+        <i class="${isFollowing ? 'minus' : 'plus' } icon"></i> ${isFollowing ? 'Unf' : 'F' }ollow
+      </a>
       <h1>${user.firstName} ${user.lastName}</h1>
+
     </div>
-    <div class="content">
-    </div>
-    <div class="title">
-      <i class="dropdown icon"></i>
-      ${user.followers.length} Followers
-    </div>
-    <div class="content">
-      <div repeat.for="follow of user.followers">
-        <a href="#/profile/${follow.follower._id}">${follow.follower.firstName} ${follow.follower.lastName}</a>
+    <div id="acc" class="ui accordion">
+      <div class="title">
+        <i class="dropdown icon"></i>
+        ${user.followers.length} Followers
       </div>
-    </div>
-    <div class="title">
-      <i class="dropdown icon"></i>
-      ${user.following.length} Following
-    </div>
-    <div class="content">
-      <div repeat.for="follow of user.following">
-        <a href="#/profile/${follow.followee._id}">${follow.followee.firstName} ${follow.followee.lastName}</a>
+      <div class="content">
+        <div repeat.for="user of user.followers">
+          <a href="#/profile/${user._id}">${user.firstName} ${user.lastName}</a>
+        </div>
+      </div>
+      <div class="title">
+        <i class="dropdown icon"></i>
+        ${user.following.length} Following
+      </div>
+      <div class="content">
+        <div repeat.for="user of user.following">
+          <a href="#/profile/${user._id}">${user.firstName} ${user.lastName}</a>
+        </div>
       </div>
     </div>
   </div>

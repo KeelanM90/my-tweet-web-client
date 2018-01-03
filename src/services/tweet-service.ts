@@ -1,9 +1,9 @@
-import { inject } from 'aurelia-framework';
+import {inject} from 'aurelia-framework';
 import AsyncHttpClient from './async-http-client';
 import Fixtures from './fixtures';
 import {ActiveUser, CurrentUser, LoginStatus, Tweets} from './messages';
-import { EventAggregator } from 'aurelia-event-aggregator';
-import { User, Tweet } from './models';
+import {EventAggregator} from 'aurelia-event-aggregator';
+import {User, Tweet} from './models';
 import * as moment from 'moment';
 
 @inject(Fixtures, EventAggregator, AsyncHttpClient)
@@ -29,24 +29,28 @@ export class TweetService {
       this.currentUser = res.content as User;
       this.ac.get('/api/followers/' + this.currentUser._id).then(res2 => {
         this.currentUser.followers = res2.content as Array<User>;
-      });
-      this.ac.get('/api/following/' + this.currentUser._id).then(res2 => {
-        this.currentUser.following = res2.content as Array<User>;
-      });
-      this.ea.publish(new CurrentUser(this.currentUser));
+      }).then(res => {
+          this.ac.get('/api/following/' + this.currentUser._id).then(res2 => {
+            this.currentUser.following = res2.content as Array<User>;
+          }).then(res => {
+            this.ea.publish(new CurrentUser(this.currentUser));
+          });
+        });
     });
   }
 
   getUser(id) {
     this.ac.get('/api/users/' + id).then(res => {
       this.user = res.content as User;
-      this.ac.get('/api/followers/' + id).then(res2 => {
+      this.ac.get('/api/followers/' + this.user._id).then(res2 => {
         this.user.followers = res2.content as Array<User>;
+      }).then(res => {
+        this.ac.get('/api/following/' + this.user._id).then(res2 => {
+          this.user.following = res2.content as Array<User>;
+        }).then(res => {
+          this.ea.publish(new ActiveUser(this.user));
+        });
       });
-      this.ac.get('/api/following/' + id).then(res2 => {
-        this.user.following = res2.content as Array<User>;
-      });
-      this.ea.publish(new ActiveUser(this.user));
     });
   }
 
@@ -69,7 +73,7 @@ export class TweetService {
   getUsersTweets(id) {
     this.ac.get('/api/users/' + id + '/tweets').then(res => {
       this.tweets = res.content;
-      this.tweets.forEach( tweet => {
+      this.tweets.forEach(tweet => {
         tweet.readableDate = moment(tweet.date).format('lll');
       })
       this.ea.publish(new Tweets(this.tweets));
@@ -79,16 +83,17 @@ export class TweetService {
   getTweets() {
     this.ac.get("/api/tweets").then(res => {
       this.tweets = res.content;
-      this.tweets.forEach( tweet => {
+      this.tweets.forEach(tweet => {
         tweet.readableDate = moment(tweet.date).format('lll');
       })
       this.ea.publish(new Tweets(this.tweets));
     });
   }
 
-  tweet(tweetmsg: string) {
+  tweet(tweetmsg, image) {
     const tweet = {
-      tweet: tweetmsg
+      tweet: tweetmsg,
+      image: image
     };
     this.ac
       .post('/api/tweets', tweet)
@@ -107,12 +112,29 @@ export class TweetService {
       });
   }
 
-  register(
-    firstName: string,
-    lastName: string,
-    email: string,
-    password: string,
-  ) {
+  follow(user) {
+    const relationship = {
+      followee: user._id
+    }
+    this.ac
+      .post('/api/follow', relationship)
+      .then(res => {
+        this.getUser(user._id);
+      });
+  }
+
+  unfollow(user) {
+    this.ac
+      .delete('/api/follow/' + user._id)
+      .then(res => {
+        this.getUser(user._id);
+      });
+  }
+
+  register(firstName: string,
+           lastName: string,
+           email: string,
+           password: string,) {
     const newUser = {
       firstName: firstName,
       lastName: lastName,

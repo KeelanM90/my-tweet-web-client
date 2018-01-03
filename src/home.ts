@@ -21,6 +21,13 @@ export class Home {
         href: '/profile'
       },
       {
+        route: 'settings',
+        name: 'settings',
+        moduleId: 'components/settings',
+        nav: true,
+        title: 'Settings'
+      },
+      {
         route: 'logout',
         name: 'logout',
         moduleId: 'components/logout',
