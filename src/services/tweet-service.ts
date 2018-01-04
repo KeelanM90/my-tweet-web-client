@@ -90,6 +90,17 @@ export class TweetService {
     });
   }
 
+  getFollowedTweets() {
+    this.ac.get("/api/tweets/followed").then(res => {
+      this.tweets = res.content;
+      this.tweets.forEach(tweet => {
+        tweet.readableDate = moment(tweet.date).format('lll');
+      })
+      console.log(this.tweets);
+      this.ea.publish(new Tweets(this.tweets));
+    });
+  }
+
   tweet(tweetmsg, image) {
     const tweet = {
       tweet: tweetmsg,

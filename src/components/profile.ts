@@ -28,6 +28,5 @@ export class Profile {
     this.eventAggregator = ea;
 
     this.tweetService.getCurrentUser();
-
   }
 }

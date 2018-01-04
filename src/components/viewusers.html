@@ -1,0 +1,11 @@
+<template>
+  <div class="ui padded divided list segment">
+
+    <div repeat.for="[id, user] of users" class="padded item">
+      <div class="content">
+        <a href="#/profile/${user._id}">${user.firstName} ${user.lastName}</a>
+      </div>
+    </div>
+
+  </div>
+</template>

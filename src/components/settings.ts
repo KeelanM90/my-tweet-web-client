@@ -6,7 +6,7 @@ import {CurrentUser} from "../services/messages";
 import {User} from "../services/models";
 
 @inject(TweetService, EventAggregator)
-export class Signup {
+export class Settings {
   tweetService: TweetService;
   eventAggregator: EventAggregator;
 

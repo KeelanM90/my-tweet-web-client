@@ -20,12 +20,12 @@ export class Viewuser {
           trigger: '.title'
         }
       });
+    this.updateFollowing();
   }
 
   constructor(ts, ea) {
     this.tweetService = ts;
     this.eventAggregator = ea;
-    this.updateFollowing();
   }
 
   followToggle() {
@@ -38,16 +38,17 @@ export class Viewuser {
   }
 
   updateFollowing() {
-    this.eventAggregator.subscribe(CurrentUser, msg => {
-      this.currentUser = msg.user;
-      this.eventAggregator.subscribe(ActiveUser, msg => {
-        this.user = msg.user;
-        for (let follower of this.user.followers) {
-          if (follower._id === this.currentUser._id) {
-            this.isFollowing = true;
-          }
+    this.isFollowing = false;
+    this.eventAggregator.subscribe(ActiveUser, msg => {
+      this.user = msg.user;
+      this.tweetService.getCurrentUser();
+      let following = false
+      for (let follower of this.user.followers) {
+        if (follower._id === this.tweetService.currentUser._id) {
+          following = true;
         }
-      });
+      }
+      this.isFollowing = following;
     });
   }
 }

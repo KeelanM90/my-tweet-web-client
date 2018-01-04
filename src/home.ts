@@ -10,7 +10,14 @@ export class Home {
         name: 'home',
         moduleId: 'components/home',
         nav: true,
-        title: 'Home',
+        title: 'Global Timeline',
+      },
+      {
+        route: 'followedtweets',
+        name: 'followedtweets',
+        moduleId: 'components/followedtweets',
+        nav: true,
+        title: 'Followed Timeline'
       },
       {
         route: ['profile/:id?'],
