@@ -1,10 +1,26 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+<template>
 
-</body>
-</html>
+  <form submit.delegate="update($event)" class="ui stacked segment form">
+    <h3 class="ui header">Settings</h3>
+    <div class="two fields">
+      <div class="field">
+        <label>First Name</label>
+        <input placeholder="First Name" type="text" value.bind="firstName" required>
+      </div>
+      <div class="field">
+        <label>Last Name</label>
+        <input placeholder="Last Name" type="text" value.bind="lastName" required>
+      </div>
+    </div>
+    <div class="field">
+      <label>Email</label>
+      <input placeholder="Email" type="text" value.bind="email" required>
+    </div>
+    <div class="field">
+      <label>Password</label>
+      <input placeholder="Password" type="password" value.bind="password" required>
+    </div>
+    <button class="ui blue submit button">Submit</button>
+  </form>
+
+</template>

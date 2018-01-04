@@ -61,6 +61,11 @@ export default class AsyncHttpClient {
     return this.http.get(url);
   }
 
+
+  put(url: string, obj: any) {
+    return this.http.put(url, obj);
+  }
+
   post(url: string, obj: any) {
     return this.http.post(url, obj);
   }

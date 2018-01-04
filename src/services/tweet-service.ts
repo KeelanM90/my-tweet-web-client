@@ -146,6 +146,12 @@ export class TweetService {
     });
   }
 
+  update(updatedUser) {
+    this.ac.put('/api/users', updatedUser).then(res => {
+      this.getUsers();
+    });
+  }
+
   login(email: string, password: string) {
     const user = {
       email: email,

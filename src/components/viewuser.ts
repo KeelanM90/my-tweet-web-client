@@ -38,19 +38,16 @@ export class Viewuser {
   }
 
   updateFollowing() {
-    console.log('called')
-
     this.eventAggregator.subscribe(CurrentUser, msg => {
       this.currentUser = msg.user;
-      console.log(this.currentUser);
-    });
-    this.eventAggregator.subscribe(ActiveUser, msg => {
-      this.user = msg.user;
-      for (let follower of this.user.followers) {
-        if (follower._id === this.currentUser._id) {
-          this.isFollowing = true;
+      this.eventAggregator.subscribe(ActiveUser, msg => {
+        this.user = msg.user;
+        for (let follower of this.user.followers) {
+          if (follower._id === this.currentUser._id) {
+            this.isFollowing = true;
+          }
         }
-      }
+      });
     });
   }
 }
