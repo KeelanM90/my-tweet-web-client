@@ -20,12 +20,18 @@ export class Home {
         title: 'Followed Timeline'
       },
       {
-        route: ['profile/:id?'],
+        route: 'profile',
         name: 'profile',
         moduleId: 'components/profile',
         nav: true,
+        title: 'My Profile',
+      },
+      {
+        route: 'userprofile/:id',
+        name: 'userprofile',
+        moduleId: 'components/userprofile',
+        nav: false,
         title: 'Profile',
-        href: '/profile'
       },
       {
         route: 'settings',

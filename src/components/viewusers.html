@@ -3,7 +3,7 @@
 
     <div repeat.for="[id, user] of users" class="padded item">
       <div class="content">
-        <a href="#/profile/${user._id}">${user.firstName} ${user.lastName}</a>
+        <a route-href="route: userprofile; params.bind: { id: user._id }">${user.firstName} ${user.lastName}</a>
       </div>
     </div>
 

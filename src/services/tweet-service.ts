@@ -80,6 +80,7 @@ export class TweetService {
         count++;
         if (count == this.tweets.length) {
           this.ea.publish(new Tweets(this.tweets));
+          console.log(this.tweets);
         }
       });
     });
