@@ -9,6 +9,5 @@ export class Viewusers {
   constructor(ts) {
     ts.getUsers();
     this.users = ts.users;
-    console.log(this.users);
   }
 }

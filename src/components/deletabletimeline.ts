@@ -16,7 +16,7 @@ export class Deletabletimeline {
 
     ea.subscribe(CurrentUser, msg => {
       this.user = msg.user as User;
-      ts.getUsersTweets(this.user._id);
+      //ts.getUsersTweets(this.user._id);
       ea.subscribe(Tweets, msg => {
         this.tweets = msg.tweets;
       });

@@ -14,4 +14,5 @@ export interface Tweet {
   date: Date;
   readableDate: string;
   tweeter: User;
+  img: string
 }
