@@ -71,13 +71,17 @@ export class TweetService {
   }
 
   getUsersTweets(id) {
+    let count = 0;
+    this.ea.publish(new Tweets([]));
     this.ac.get('/api/users/' + id + '/tweets').then(res => {
       this.tweets = res.content;
       this.tweets.forEach(tweet => {
-        tweet.readableDate = moment(tweet.date).format('lll');
+        tweet.readableDate = moment(tweet.date).format('lll')
+        count++;
+        if (count == this.tweets.length) {
+          this.ea.publish(new Tweets(this.tweets));
+        }
       });
-      console.log(this.tweets);
-      this.ea.publish(new Tweets(this.tweets));
     });
   }
 

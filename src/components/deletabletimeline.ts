@@ -1,10 +1,10 @@
-import { inject } from 'aurelia-framework';
-import { TweetService } from '../services/tweet-service';
-import { EventAggregator } from 'aurelia-event-aggregator';
+import {inject} from 'aurelia-framework';
+import {TweetService} from '../services/tweet-service';
+import {EventAggregator} from 'aurelia-event-aggregator';
 import {Tweet, User} from '../services/models';
 import {ActiveUser, CurrentUser, Tweets} from "../services/messages";
 
-@inject(TweetService , EventAggregator)
+@inject(TweetService, EventAggregator)
 export class Deletabletimeline {
   tweetService: TweetService;
   tweets: Array<Tweet>;
@@ -13,23 +13,18 @@ export class Deletabletimeline {
 
   constructor(ts, ea) {
     this.tweetService = ts;
-
-    ea.subscribe(CurrentUser, msg => {
-      this.user = msg.user as User;
-      //ts.getUsersTweets(this.user._id);
-      ea.subscribe(Tweets, msg => {
-        this.tweets = msg.tweets;
-      });
+    ea.subscribe(Tweets, msg => {
+      this.tweets = msg.tweets;
     });
   }
 
-  deleteAll(){
+  deleteAll() {
     for (let tweet of this.tweets) {
       this.tweetService.deleteTweet(tweet._id);
     }
   }
 
-  deleteSelected(){
+  deleteSelected() {
     for (let id of this.checkboxes) {
       this.tweetService.deleteTweet(id);
     }
