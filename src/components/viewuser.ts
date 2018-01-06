@@ -26,6 +26,7 @@ export class Viewuser {
   constructor(ts, ea) {
     this.tweetService = ts;
     this.eventAggregator = ea;
+    ts.getCurrentUser();
   }
 
   followToggle() {

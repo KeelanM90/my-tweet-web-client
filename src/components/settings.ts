@@ -28,7 +28,6 @@ export class Settings {
       this.firstName = this.currentUser.firstName;
       this.lastName = this.currentUser.lastName;
       this.email = this.currentUser.email;
-      this.password = this.currentUser.password;
     });
   }
 

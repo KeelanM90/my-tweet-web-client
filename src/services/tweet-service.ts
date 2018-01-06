@@ -159,7 +159,7 @@ export class TweetService {
       password: password,
     };
     this.ac.post('/api/users', newUser).then(res => {
-      this.getUsers();
+
     });
   }
 
