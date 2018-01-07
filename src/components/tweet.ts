@@ -22,7 +22,7 @@ export class Tweet {
     if (this.image[0]) {
       reader.readAsDataURL(this.image[0]);
     } else {
-      this.tweetService.tweet(this.tweet, this.image);
+      this.tweetService.tweet(this.tweet, null);
     }
   }
 }

@@ -16,6 +16,5 @@ export class Profile {
     this.eventAggregator = ea;
     ts.getCurrentUser();
     this.tweetService.getUsersTweets(ts.currentUser._id);
-
   }
 }
